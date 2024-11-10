@@ -7,6 +7,7 @@ import SignUp from "./assets/Pages/SignUp"
 import ClientProfile from "./assets/Pages/ClientProfile"
 import Header from "./Components/Header"
 import CounselorProfile from "./assets/Pages/CounselorProfile"
+import Registration from "./assets/Pages/Registration"
 
  
 export default function App() {
@@ -21,6 +22,8 @@ export default function App() {
   <Route path="/sign-up" element={<SignUp />} />
   <Route path="/client-profile" element={<ClientProfile />} />
   <Route path="/counselor-profile" element={<CounselorProfile />} />
+  <Route path="/registration" element={<Registration />} />
+
  </Routes>
     </BrowserRouter>
  
