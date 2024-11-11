@@ -1,13 +1,14 @@
 
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Home from "./assets/Pages/Home"
-import About from "./assets/Pages/About"
-import SignIn from "./assets/Pages/SignIn"
-import SignUp from "./assets/Pages/SignUp"
-import ClientProfile from "./assets/Pages/ClientProfile"
 import Header from "./Components/Header"
-import CounselorProfile from "./assets/Pages/CounselorProfile"
-import Registration from "./assets/Pages/Registration"
+import Home from "./pages/home"
+import About from "./pages/about"
+import SignIn from "./pages/signIn"
+import SignUp from "./pages/signUp"
+import ClientProfile from "./pages/clientProfile"
+import CounselorProfile from "./pages/CounselorProfile"
+import Registration from "./Pages/Registration"
+
 
  
 export default function App() {
