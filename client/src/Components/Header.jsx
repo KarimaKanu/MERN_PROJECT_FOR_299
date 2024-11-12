@@ -1,9 +1,10 @@
 import {Link} from 'react-router-dom'
-//import React from 'react'
+import { useSelector } from 'react-redux'
 export default function Header() {
+    const { currentUser} = useSelector(state => state.user)
   return (
     <div className='bg-teal-300'>
-        <div className='flex justify-between items-center mx-20 p-6'>
+        <div className='flex justify-between items-center mx-20 p-2'>
             <h1 className='font-bold text-3xl'><Link to="/" className="block px-4 py-2 text-gray-700 hover:bg-teal-100">
                   Serenity
                 </Link></h1>
@@ -19,8 +20,9 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <Link to="/sign-in" className="block px-4 py-2 text-gray-700 hover:bg-teal-100">
-                  Sign In
+                <Link to="/client-Profile" className="block px-4 py-2 text-gray-700 hover:bg-teal-100">
+                {currentUser ? <p className='font-extrabold text-lime-950 bg-amber-100 p-2 rounded-full'>{currentUser.username}</p>: <p>Sign In</p> }
+                  
                 </Link>
               </li>
             </ul>
