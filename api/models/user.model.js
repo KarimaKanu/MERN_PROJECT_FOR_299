@@ -15,11 +15,71 @@ const userSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
-      profilePicture: {
+      
+      name: {
         type: String,
-        default:
-          'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg',
+        required: true,
+    
       },
+      age: {
+        type: Number,
+        required: true,
+        
+      },
+      gender: {
+        type: String,
+        enum: ['Male', 'Female', 'Other'], // restricts values to these options
+        required: true, // if you want gender to be mandatory
+      },
+      occupation: {
+        type: String,
+        required: true,
+        
+      },
+      maritalStatus: {
+        type: String, // Make sure to define type as String
+        enum: ['Married', 'Unmarried'],
+        required: true,
+      },
+      contactNo: {
+        type: String,
+        required: true,
+        
+      },
+      emergencyNo:{
+        type: String,
+        required: true,
+      },
+    //   address: {
+    //     type: String,
+    //     required: true,
+        
+    //   },
+    //   educationMedium: {
+    //     type: String,
+    //     required: true,
+    //   },
+    //   upbringingPlace: {
+    //     type: String,
+    //     required: true,
+    //   },
+    //   extracurriculars: {
+    //     type: String,
+    //     required: true,
+    //   },
+    //   currentConcerns: {
+    //     type: String,
+    //     required: true,
+    //   },
+      
+    //   receivedMentalHealthServices: {
+    //     type: Boolean,
+    //     default: false,
+    //   },
+    //   takingPsychiatricMedication: {
+    //     type: Boolean,
+    //     default: false,
+    //   },
     },
     { timestamps: true }
   );
