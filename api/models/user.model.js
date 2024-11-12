@@ -50,36 +50,36 @@ const userSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
-    //   address: {
-    //     type: String,
-    //     required: true,
+      address: {
+        type: String,
+        required: true,
         
-    //   },
-    //   educationMedium: {
-    //     type: String,
-    //     required: true,
-    //   },
-    //   upbringingPlace: {
-    //     type: String,
-    //     required: true,
-    //   },
-    //   extracurriculars: {
-    //     type: String,
-    //     required: true,
-    //   },
-    //   currentConcerns: {
-    //     type: String,
-    //     required: true,
-    //   },
+      },
+      educationMedium: {
+        type: String,
+        required: true,
+      },
+      upbringingPlace: {
+        type: String,
+        required: true,
+      },
+      extracurriculars: {
+        type: String,
+        required: true,
+      },
+      currentConcerns: {
+        type: String,
+        required: true,
+      },
       
-    //   receivedMentalHealthServices: {
-    //     type: Boolean,
-    //     default: false,
-    //   },
-    //   takingPsychiatricMedication: {
-    //     type: Boolean,
-    //     default: false,
-    //   },
+      receivedMentalHealthServices: {
+        type: Boolean,
+        default: false,
+      },
+      takingPsychiatricMedication: {
+        type: Boolean,
+        default: false,
+      },
     },
     { timestamps: true }
   );

@@ -230,7 +230,7 @@ export default function SignUp() {
     </form>
 
 
-    {/* <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <section className="w-9/12 bg-teal-100 p-10 rounded m-auto mt-10 text-start">
         <div>
           <h3 className="text-xl font-bold">
@@ -308,7 +308,7 @@ export default function SignUp() {
              className="rounded mt-3 bg-white px-8 py-2 hover:bg-teal-500 hover:opacity-95 disabled:opacity-80 hover:text-white">{loading ? 'Loading...' : 'Sign Up'}</button>
       </section>
       
-    </form> */}
+    </form>
     <button
             disabled={loading}
              className="rounded mt-3 bg-white px-8 py-2 hover:bg-teal-500 hover:opacity-95 disabled:opacity-80 hover:text-white">{loading ? 'Loading...' : 'Sign Up'}</button>
