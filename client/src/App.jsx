@@ -9,6 +9,8 @@ import ClientProfile from "./pages/clientProfile"
 import CounselorProfile from "./pages/CounselorProfile"
 import Registration from "./Pages/Registration"
 import PrivateRoute from "./Components/PrivateRoute"
+import CounselorSignin from "./Pages/CounselorSignin"
+import CounselorRegistration from "./Pages/CounselorRegistration"
 
 
  
@@ -26,6 +28,8 @@ export default function App() {
   <Route path="/client-profile" element={<ClientProfile />} /></Route>
   <Route path="/counselor-profile" element={<CounselorProfile />} />
   <Route path="/registration" element={<Registration />} />
+  <Route path="/counselor-registration" element={<CounselorRegistration />} />
+  <Route path="/counselor-signin" element={<CounselorSignin />} />
 
  </Routes>
     </BrowserRouter>

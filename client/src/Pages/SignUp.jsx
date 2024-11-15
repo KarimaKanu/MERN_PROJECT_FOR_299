@@ -3,14 +3,42 @@ import {Link, useNavigate} from 'react-router-dom'
 //import React from 'react'
 
 export default function SignUp() {
-  const[formData, setFormData] = useState({})
+  const[formData, setFormData] = useState({
+   username: "",
+  email: "",
+  password: "",
+  name: '',
+  age: 0,
+  gender: "",
+  occupation: "",
+  maritalStatus: "",
+  contactNo: "",
+  emergencyNo: "",
+  address: "",
+  educationMedium: "",
+  upbringingPlace: "",
+  extracurriculars: "",
+  currentConcerns: "",
+  receivedMentalHealthServices: false,
+  takingPsychiatricMedication: false,
+  selfCare: false,
+  relationship: false,
+  socialActivity: false,
+  professional: false,
+  groupActivity: false
+
+  })
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const handleChange = (e) =>
-  {
-    setFormData({...formData, [e.target.id]: e.target.value})
-  }
+ 
+  const handleChange = (e) => {
+    const { id, type, value, checked } = e.target;
+    setFormData({
+      ...formData,
+      [id]: type === "checkbox" ? checked : value, // Handle checkboxes properly
+    });
+  };
   const handleSubmit = async (e) =>
   {
     e.preventDefault();
@@ -33,7 +61,7 @@ export default function SignUp() {
         return;
 
       }
-      navigate('/')
+      navigate('/client-profile')
     } catch (error) {
       setLoading(false);
       setError(true);
@@ -60,11 +88,11 @@ export default function SignUp() {
               onChange={handleChange}
               />
             <input
-              id="email"
-              
+
               className="block mb-3 p-2 rounded w-full"
               placeholder="Enter Your Email"
               type="email"
+              id='email'
               required 
               onChange={handleChange}
             />
@@ -82,9 +110,7 @@ export default function SignUp() {
             </p>
               <Link to='/sign-in'>
               <span className='text-blue-400 '>Sign In</span>
-              </Link> <br />
-            
-            
+              </Link> 
           </div>
         <p className='text-red-600 mt-3'>{error &&'Something went wrong'}</p>
         
@@ -125,37 +151,18 @@ export default function SignUp() {
             onChange={handleChange}
           />
 
-          <p>Your Gender:</p>
-          <label>
-            <input
-              type="radio"
-              name="gender"
-              value="Male"
-              checked={formData.gender === 'Male'}
-              onChange={handleChange}
-            />
-            Male
-          </label><br />
-          <label>
-            <input
-              type="radio"
-              name="gender"
-              value="Female"
-              checked={formData.gender === 'Female'}
-              onChange={handleChange}
-            />
-            Female
-          </label><br />
-          <label>
-            <input
-              type="radio"
-              name="gender"
-              value="Other"
-              checked={formData.gender === 'Other'}
-              onChange={handleChange}
-            />
-            Other
-          </label>
+<label htmlFor="name">Gender:</label>
+          <input
+            id="gender"
+            className="block mb-3 p-2 rounded w-9/12"
+            placeholder="Male/Female"
+            type="text"
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+          />
+          
+          
 
           <label htmlFor="occupation">Occupation:</label>
           <input
@@ -166,29 +173,20 @@ export default function SignUp() {
             name="occupation"
             value={formData.occupation}
             onChange={handleChange}
-          />
+          /> <br />
 
-          <p>Your Marital Status:</p>
-          <label>
-            <input
-              type="radio"
-              name="maritalStatus"
-              value="Married"
-              checked={formData.maritalStatus === 'Married'}
-              onChange={handleChange}
-            />
-            Married
-          </label><br />
-          <label>
-            <input
-              type="radio"
-              name="maritalStatus"
-              value="Unmarried"
-              checked={formData.maritalStatus === 'Unmarried'}
-              onChange={handleChange}
-            />
-            Unmarried
-          </label>
+          
+          <label htmlFor="name">Marital Status</label>
+          <input
+            id="maritalStatus"
+            className="block mb-3 p-2 rounded w-9/12"
+            placeholder="Enter Your Name"
+            type="text"
+            name="maritalStatus"
+            value={formData.maritalStatus}
+            onChange={handleChange}
+          />
+         <br />
 
           <label htmlFor="address">Present Address:</label>
           <input
@@ -243,6 +241,7 @@ export default function SignUp() {
           <input
             className="block mb-3 p-2 rounded w-9/12"
             placeholder="Bangla/English/Other Languages"
+            id='educationMedium'
             type="text"
             name="educationMedium"
             value={formData.educationMedium}
@@ -254,6 +253,7 @@ export default function SignUp() {
             className="block mb-3 p-2 rounded w-9/12"
             placeholder="Urban/Sub-urban/Rural/Abroad"
             type="text"
+            id='upbringingPlace'
             name="upbringingPlace"
             value={formData.upbringingPlace}
             onChange={handleChange}
@@ -264,6 +264,7 @@ export default function SignUp() {
             className="block mb-3 p-2 rounded w-9/12"
             placeholder="Enter Your Answer"
             type="text"
+            id='extracurriculars'
             name="extracurriculars"
             value={formData.extracurriculars}
             onChange={handleChange}
@@ -273,6 +274,7 @@ export default function SignUp() {
           <textarea
             className="rounded-md mb-3 p-2 w-9/12"
             name="currentConcerns"
+            id='currentConcerns'
             rows="4"
             placeholder="Describe Your Concerns"
             value={formData.currentConcerns}
@@ -282,9 +284,69 @@ export default function SignUp() {
 
           
 
+          
+        <h1>Present Concerns:</h1>
+
+          <input
+            type="checkbox"
+            name="selfCare"
+            id='selfCare'
+            checked={formData.selfCare}
+            onChange={handleChange}
+          />
+          <label htmlFor="selfCare">
+            Self Care
+          </label><br />
+
+          <input
+            type="checkbox"
+            name="relationship"
+            id='relationship'
+            checked={formData.relationship}
+            onChange={handleChange}
+          />
+          <label htmlFor="relationship">
+            Relationship Issues.
+          </label><br />
+
+
+          <input
+            type="checkbox"
+            name="socialActivity"
+            id='socialActivity'
+            checked={formData.socialActivity}
+            onChange={handleChange}
+          />
+          <label htmlFor="socialActivity">
+            Performing Social Activities.
+          </label><br />
+
+          <input
+            type="checkbox"
+            name="professional"
+            id='professional'
+            checked={formData.professional}
+            onChange={handleChange}
+          />
+          <label htmlFor="professional">
+            Professional Concerns.
+          </label><br />
+
+
+          <input
+            type="checkbox"
+            name="groupActivity"
+            id='groupActivity'
+            checked={formData.groupActivity}
+            onChange={handleChange}
+          />
+          <label htmlFor="groupActivity">
+            Issues in performing Group Activities.
+          </label><br />
           <input
             type="checkbox"
             name="receivedMentalHealthServices"
+            id='receivedMentalHealthServices'
             checked={formData.receivedMentalHealthServices}
             onChange={handleChange}
           />
@@ -293,13 +355,20 @@ export default function SignUp() {
           </label><br />
           <input
             type="checkbox"
+            id='takingPsychiatricMedication'
             name="takingPsychiatricMedication"
             checked={formData.takingPsychiatricMedication}
             onChange={handleChange}
           />
-          <label htmlFor="takingPsychiatricMedication">
+         <label htmlFor="takingPsychiatricMedication">
             Are you currently taking any psychiatric medication?
           </label><br />
+        
+
+
+
+          
+          
 
           
         </div>

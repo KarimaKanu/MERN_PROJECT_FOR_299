@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const userSchema = new mongoose.Schema(
+const counselorSchema = new mongoose.Schema(
     {
       username: {
         type: String,
@@ -31,11 +31,7 @@ const userSchema = new mongoose.Schema(
         //enum: ['Male', 'Female', 'Other'], // restricts values to these options
         required: true, // if you want gender to be mandatory
       },
-      occupation: {
-        type: String,
-        required: true,
-        
-      },
+      
       maritalStatus: {
         type: String, // Make sure to define type as String
         //enum: ['Married', 'Unmarried'],
@@ -55,57 +51,13 @@ const userSchema = new mongoose.Schema(
         required: true,
         
       },
-      educationMedium: {
-        type: String,
-        required: true,
-      },
-      upbringingPlace: {
-        type: String,
-        required: true,
-      },
-      extracurriculars: {
-        type: String,
-        required: true,
-      },
-      currentConcerns: {
-        type: String,
-        required: true,
-      },
       
-      receivedMentalHealthServices: {
-        type: Boolean,
-        default: false,
-      },
-      takingPsychiatricMedication: {
-        type: Boolean,
-        default: false,
-      },
-      selfCare: {
-        type: Boolean,
-        default: false,
-      },
-      relationship: {
-        type: Boolean,
-        default: false,
-      },
-      socialActivity: {
-        type: Boolean,
-        default: false,
-      },
-      professional: {
-        type: Boolean,
-        default: false,
-      },
-      groupActivity: {
-        type: Boolean,
-        default: false,
-      },
       
       
     },
     { timestamps: true }
   );
   
-  const User = mongoose.model('User', userSchema);
+  const Counselor = mongoose.model('Counselor', counselorSchema);
   
-  export default User;
+  export default Counselor;

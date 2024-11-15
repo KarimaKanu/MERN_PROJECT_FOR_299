@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 
 export default function ClientProfile() {
   const { currentUser} = useSelector(state => state.user)
+   const selfCare = currentUser?.selfCare;
   return (
     
     <section>
@@ -19,7 +20,7 @@ export default function ClientProfile() {
 
         {/* Profile Dropdown */}
         <div className="dropdown dropdown-hover border-l-2 border-teal-400 py-4">
-          <div tabindex="0" role="button">
+          <div tabIndex="0" role="button">
             <div>
               <img src="./src/img/user.svg" className="w-5 text-center m-auto" alt="Profile" />
               <Link className="link link-hover hover:text-teal-400">Profile</Link>
@@ -30,7 +31,7 @@ export default function ClientProfile() {
 
         {/* My Account Dropdown */}
         <div className="dropdown dropdown-hover border-l-2 border-teal-400 py-4">
-          <div tabindex="0" role="button">
+          <div tabIndex="0" role="button">
             <div>
               <img src="./src/img/user-pen.svg" className="w-5 text-center m-auto" alt="My Account" />
               <Link className="link link-hover hover:text-teal-400">My Account</Link>
@@ -41,7 +42,7 @@ export default function ClientProfile() {
 
         {/* Payments Dropdown */}
         <div className="dropdown dropdown-hover border-l-2 border-teal-400 py-4">
-          <div tabindex="0" role="button">
+          <div tabIndex="0" role="button">
             <div>
               <img src="./src/img/hand-bill.svg" className="w-5 text-center m-auto" alt="Payments" />
               <Link className="link link-hover hover:text-teal-400">Payments</Link>
@@ -64,7 +65,7 @@ export default function ClientProfile() {
 
         {/* Appointments Dropdown */}
         <div className="dropdown dropdown-hover border-l-2 border-teal-400 py-4">
-          <div tabindex="0" role="button">
+          <div tabIndex="0" role="button">
             <div>
               <img src="./src/img/calendar-days.svg" className="w-5 text-center m-auto" alt="Appointments" />
               <Link className="link link-hover hover:text-teal-400">Appointments</Link>
@@ -75,7 +76,7 @@ export default function ClientProfile() {
 
         {/* Counselors Dropdown */}
         <div className="dropdown dropdown-hover border-l-2 border-teal-400 py-4">
-          <div tabindex="0">
+          <div tabIndex="0">
             <div>
               <img src="./src/img/laptop-medical.svg" className="w-5 text-center m-auto" alt="Counselors" />
               <Link className="link link-hover hover:text-teal-400">Counselors</Link>
@@ -89,6 +90,7 @@ export default function ClientProfile() {
       <h1 className="text-3xl font-bold p-5 text-center m-auto mt-10 rounded-lg bg-yellow-50 w-1/2 border-2 border-teal-300">
         Welcome <span>{currentUser.name}</span>
       </h1>
+        
       <div className=' text-center  '>
       <button className='bg-teal-200 p-2 rounded-lg m-3 hover:bg-yellow-100 hover:text-teal-500  '>Sign Out</button>
       </div>
