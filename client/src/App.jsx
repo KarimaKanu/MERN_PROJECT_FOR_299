@@ -24,7 +24,6 @@ export default function App() {
   <Route path="/sign-up" element={<SignUp />} />
   <Route element={<PrivateRoute/>}>
   <Route path="/client-profile" element={<ClientProfile />} /></Route>
-  
   <Route path="/counselor-profile" element={<CounselorProfile />} />
   <Route path="/registration" element={<Registration />} />
 
