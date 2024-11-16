@@ -20,10 +20,27 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <Link to="/client-Profile" className="block px-4 py-2 text-gray-700 hover:bg-teal-100">
-                {currentUser ? <p className='font-extrabold text-lime-950 bg-amber-100 p-2 rounded-full'>{currentUser.username}</p>: <p>Sign In</p> }
-                  
-                </Link>
+              <Link 
+  to={
+    currentUser
+      ? currentUser.role === 1
+        ? "/admin-profile"
+        : currentUser.role === 2
+        ? "/counselor-profile"
+        : currentUser.role === 3
+        ? "/client-profile"
+        : "/sign-in" // Default if the role is none of the above
+      : "/sign-in" // If no currentUser, redirect to sign-in
+  } 
+  className="block px-4 py-2 text-gray-700 hover:bg-teal-100"
+>
+  {currentUser ? 
+    <p className='font-extrabold text-lime-950 bg-amber-100 p-2 rounded-full'>
+      {currentUser.username}
+    </p> 
+    : <p>Sign In</p>
+  }
+</Link>
               </li>
             </ul>
         </div>

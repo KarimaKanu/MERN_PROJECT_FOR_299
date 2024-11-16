@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import counselorRoutes from './routes/counselor.route.js';
+import adminRoutes from './routes/admin.route.js';
 dotenv.config();
 
 
@@ -25,6 +26,8 @@ app.listen(3000, () =>
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/counselor", counselorRoutes);
+app.use("/api/admin", adminRoutes);
+
 
 
 

@@ -1,10 +1,32 @@
+// import React from 'react'
+// export default function AdminProfile() {
+   
+//   return (
+//     <div>AdminProfile</div>
+  
+//   )
+// }
+
+
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 
 
-export default function ClientProfile() {
+export default function AdminProfile() {
   const { currentUser} = useSelector(state => state.user)
+  console.log('Current User:', currentUser);
+
+  
+  if (!currentUser) {
+    // Fallback UI while currentUser is being fetched
+    return (
+      <h1 className="text-2xl font-bold text-center mt-10 text-red-500">
+        Loading profile...
+      </h1>
+    );
+  }
+
    
   return (
     
@@ -68,7 +90,7 @@ export default function ClientProfile() {
           <div tabIndex="0" role="button">
             <div>
               <img src="./src/img/calendar-days.svg" className="w-5 text-center m-auto" alt="Appointments" />
-              <Link className="link link-hover hover:text-teal-400">Appointments</Link>
+              <Link className="link link-hover hover:text-teal-400">Counselors</Link>
             </div>
           </div>
           
@@ -79,7 +101,7 @@ export default function ClientProfile() {
           <div tabIndex="0">
             <div>
               <img src="./src/img/laptop-medical.svg" className="w-5 text-center m-auto" alt="Counselors" />
-              <Link className="link link-hover hover:text-teal-400">Counselors</Link>
+              <Link className="link link-hover hover:text-teal-400">Clients</Link>
             </div>
           </div>
           

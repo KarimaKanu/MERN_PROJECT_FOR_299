@@ -100,6 +100,12 @@ const userSchema = new mongoose.Schema(
         type: Boolean,
         default: false,
       },
+      role: {
+        type: Number,
+        required: true,
+        default: 3,
+        
+      },
       
       
     },

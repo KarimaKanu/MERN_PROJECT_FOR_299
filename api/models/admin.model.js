@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const counselorSchema = new mongoose.Schema(
+const adminSchema = new mongoose.Schema(
     {
       username: {
         type: String,
@@ -21,26 +21,20 @@ const counselorSchema = new mongoose.Schema(
         required: true,
     
       },
-      age: {
-        type: Number,
+      dob: {
+        type: String,
         required: true,
         
-      },
-      gender: {
-        type: String,
-        //enum: ['Male', 'Female', 'Other'], // restricts values to these options
-        required: true, // if you want gender to be mandatory
-      },
-      
-      maritalStatus: {
-        type: String, // Make sure to define type as String
-        //enum: ['Married', 'Unmarried'],
-        required: true,
       },
       contactNo: {
         type: String,
         required: true,
-        
+    
+      },
+      qualifications: {
+        type: String,
+        //enum: ['Male', 'Female', 'Other'], // restricts values to these options
+        required: true, // if you want gender to be mandatory
       },
       emergencyNo:{
         type: String,
@@ -54,16 +48,16 @@ const counselorSchema = new mongoose.Schema(
       role: {
         type: Number,
         required: true,
-        default: 2,
+        default: 1,
         
       },
       
-      
+    
       
     },
     { timestamps: true }
   );
   
-  const Counselor = mongoose.model('Counselor', counselorSchema);
+  const Admin = mongoose.model('Admin', adminSchema);
   
-  export default Counselor;
+  export default Admin;

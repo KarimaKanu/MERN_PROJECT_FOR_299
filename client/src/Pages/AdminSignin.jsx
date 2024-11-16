@@ -1,3 +1,10 @@
+// import React from 'react'
+
+// export default function AdminSignin() {
+//   return (
+//     <div>AdminSignin</div>
+//   )
+// }
 
 import {Link, Navigate, useNavigate} from 'react-router-dom'
 import { useState } from 'react'
@@ -5,8 +12,11 @@ import { signInStart, signInSuccess, signInFailure  } from '../redux/user/userSl
 import { useDispatch, useSelector } from 'react-redux';
 
 
-export default function SignIn() {
-  const[formData, setFormData] = useState({})
+export default function AdminSignin() {
+  const[formData, setFormData] = useState({
+     email: '',
+    password: ''
+  })
   const {loading, error} = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,7 +29,7 @@ export default function SignIn() {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await fetch('/api/counselor/counselorSignin',{ 
+      const res = await fetch('/api/admin/adminSignin',{ 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +45,7 @@ export default function SignIn() {
           
         }
         dispatch(signInSuccess(data));
-      navigate('/counselor-profile');
+      navigate('/admin-profile');
     } catch (error) {
       dispatch(signInFailure(error));
     }
@@ -43,8 +53,8 @@ export default function SignIn() {
   
   return (
     <div className="text-center m-auto">
-      <h1 className="text-3xl font-bold p-5 flex justify-center text-center mt-10 m-auto rounded-lg bg-yellow-100 w-1/2">
-        Counselor SignIN Page
+      <h1 className="text-3xl text-red-600 font-bold p-5 flex justify-center text-center mt-10 m-auto rounded-lg bg-yellow-100 w-1/2">
+        Admin SignIN Page
       </h1>
 
       <form onSubmit={handleSubmit}  className="w-full flex justify-center">
@@ -77,7 +87,7 @@ export default function SignIn() {
              className="rounded mt-3 bg-white px-8 py-2 hover:bg-teal-500 hover:opacity-95 disabled:opacity-80 hover:text-white">{loading ? 'Loading...' : 'Sign IN'}</button>
              
           </div>
-        <p className='text-red-600 mt-3'>{error ? error|| 'Something went wrong' : ""}</p>
+        <p className='text-red-600 mt-3'>{error ? error.message||'Something went wrong' : ""}</p>
 
         </section>
 
