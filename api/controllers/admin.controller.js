@@ -60,3 +60,6 @@ export const adminSignin = async (req, res, next) => {
       next(error);
     }
   };
+  export const adminSignout =(req,res)=>{
+    res.clearCookie('access_token').status(200).json('Signout Success ');
+  };

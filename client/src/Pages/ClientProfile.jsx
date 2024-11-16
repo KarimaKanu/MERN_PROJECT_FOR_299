@@ -1,10 +1,24 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux'
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import {signOut} from '../redux/user/userSlice.js';
+
 
 
 export default function ClientProfile() {
   const { currentUser} = useSelector(state => state.user)
+  const dispatch = useDispatch();
+ 
+  const handleSignOut = async () => {
+    try {
+      await fetch('/api/auth/signout');
+      
+      dispatch(signOut());
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
    
   return (
     
@@ -92,7 +106,8 @@ export default function ClientProfile() {
       </h1>
         
       <div className=' text-center  '>
-      <button className='bg-teal-200 p-2 rounded-lg m-3 hover:bg-yellow-100 hover:text-teal-500  '>Sign Out</button>
+      <button onClick={handleSignOut} className='bg-teal-200 p-2 rounded-lg m-3 hover:bg-yellow-100 hover:text-teal-500  '>Sign Out</button>
+      
       </div>
       
     </section>

@@ -7,12 +7,25 @@
 // }
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import {signOut} from '../redux/user/userSlice.js';
 
 
 export default function CounselorProfile() {
   const { currentUser} = useSelector(state => state.user)
-   const selfCare = currentUser?.selfCare;
+   
+   const dispatch = useDispatch();
+ 
+  const handleSignOut = async () => {
+    try {
+      await fetch('/api/counselor/counselorSignout');
+      
+      dispatch(signOut());
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     
     <section>
@@ -99,7 +112,7 @@ export default function CounselorProfile() {
       </h1>
         
       <div className=' text-center  '>
-      <button className='bg-teal-200 p-2 rounded-lg m-3 hover:bg-yellow-100 hover:text-teal-500  '>Sign Out</button>
+      <button onClick={handleSignOut} className='bg-teal-200 p-2 rounded-lg m-3 hover:bg-yellow-100 hover:text-teal-500  '>Sign Out</button>
       </div>
       
     </section>

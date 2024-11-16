@@ -39,4 +39,7 @@ export const counselorSignin = async (req, res, next) => {
       next(error);
     }
   };
+  export const counselorSignout =(req,res)=>{
+    res.clearCookie('access_token').status(200).json('Signout Success ');
+  };
   
