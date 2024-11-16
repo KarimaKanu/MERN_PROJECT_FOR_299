@@ -3,6 +3,8 @@ import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { errorHandler } from "../utils/error.js";
 import Admin from '../models/admin.model.js';
+import User from '../models/user.model.js';
+import Counselor from '../models/counselor.model.js';
 
 
 export const adminSignup = async (req, res, next) =>
@@ -38,5 +40,23 @@ export const adminSignin = async (req, res, next) => {
     } catch (error) {
       next(error);
     }
+    
   };
-  
+  export const fetchClients = async (req, res, next) => {
+    try {
+      const clients = await User.find({ role: 3 }); // Fetch users with role 3
+      res.status(200).json(clients);
+      console.log(clients);
+    } catch (error) {
+      next(error);
+    }
+  };
+  export const fetchCounselors = async (req, res, next) => {
+    try {
+      const clients = await Counselor.find({ role: 2 }); // Fetch users with role 3
+      res.status(200).json(clients);
+      console.log(clients);
+    } catch (error) {
+      next(error);
+    }
+  };

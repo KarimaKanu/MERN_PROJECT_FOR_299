@@ -24,7 +24,8 @@ export default function Home() {
     </div>
     <section>{currentUser ? <p></p>: <section className='m-auto my-10 border-4 w-1/2 align-middle justify-center bg-yellow-50 p-8 rounded-lg'>
         <p className='text-xl text-center font-extrabold cursor-grab hover:text-teal-600'> <Link to='counselor-signin'>Counselor Sign in</Link> </p><br />
-        <p className='text-xl text-center font-extrabold cursor-grab hover:text-teal-600'><Link to='sign-in'>Member Sign in</Link> </p>
+        <p className='text-xl text-center font-extrabold cursor-grab hover:text-teal-600'><Link to='sign-in'>Member Sign in</Link> </p> <br />
+        <p className='text-xl text-center font-extrabold cursor-grab hover:text-teal-600'><Link to='admin-signin'>Admin Sign in</Link> </p>
       </section> }</section>
     
     <footer className=" py-10 bg-teal-400 text-base-content rounded mt-40 px-auto justify-center">

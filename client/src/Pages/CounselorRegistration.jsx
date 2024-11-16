@@ -76,7 +76,7 @@ username: "",
               id="username"
               
               className="block mb-3 p-2 rounded w-full"
-              placeholder="Enter Your UserName"
+              placeholder="UserName"
               type="text"
               required 
               onChange={handleChange}
@@ -84,7 +84,7 @@ username: "",
             <input
 
               className="block mb-3 p-2 rounded w-full"
-              placeholder="Enter Your Email"
+              placeholder="Email"
               type="email"
               id='email'
               required 
@@ -94,7 +94,7 @@ username: "",
               id="password"
              
               className="block mb-3 p-2 rounded w-full"
-              placeholder="Enter Your Password"
+              placeholder="Password"
               type="password"
               required
               onChange={handleChange}
@@ -110,7 +110,7 @@ username: "",
           <input
             id="name"
             className="block mb-3 p-2 rounded w-9/12"
-            placeholder="Enter Your Name"
+            placeholder="Name"
             type="text"
             name="name"
             value={formData.name}
@@ -187,11 +187,12 @@ username: "",
 
           
         </div>
+        <button
+            disabled={loading}
+            className="rounded mt-3 bg-white px-8 py-2 hover:bg-teal-500 hover:opacity-95 disabled:opacity-80 hover:text-white items-center">{loading ? 'Loading...' : 'Register'}</button>
         
       </section>
-      <button
-            disabled={loading}
-            className="rounded mt-3 bg-white px-8 py-2 hover:bg-teal-500 hover:opacity-95 disabled:opacity-80 hover:text-white items-center">{loading ? 'Loading...' : 'Sign Up'}</button>
+      
     </form>
 
 
