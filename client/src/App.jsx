@@ -21,12 +21,35 @@ import AdminCounselorAccess from "./Pages/AdminCounselorAccess";
 import AdminClientAccess from "./Pages/AdminClientAccess";
 import PrivateRouteAdmin from "./Components/PrivateRouteAdmin";
 import AdminHeader from "./Components/AdminHeader";
+import ClientAppointments from "./Pages/ClientAppointments";
+import CounselorAppointments from "./Pages/CounselorAppointments";
+import CounselorHeader from "./Components/CounselorHeader";
+import ClientHeader from "./Components/ClientHeader";
+import ClientPassChange from "./Pages/ClientPassChange";
+import CounselorPassChange from "./Pages/CounselorPassChange";
+import AdminPassChange from "./Pages/AdminPassChange";
 
 // Admin Layout
 const AdminLayout = () => {
   return (
     <>
       <AdminHeader />
+      <Outlet />
+    </>
+  );
+};
+const CounselorLayout = () => {
+  return (
+    <>
+      <CounselorHeader />
+      <Outlet />
+    </>
+  );
+};
+const ClientLayout = () => {
+  return (
+    <>
+      <ClientHeader />
       <Outlet />
     </>
   );
@@ -45,25 +68,34 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route element={<PrivateRoute />}>
+        <Route element={<ClientLayout />}>
           <Route path="/client-profile" element={<ClientProfile />} />
-        </Route>
+          <Route path="/client-pass-change" element={<ClientPassChange />} />
+          <Route path="/client-appointments" element={<ClientAppointments />} />
+        </Route></Route>
         <Route path="/counselor-signin" element={<CounselorSignin />} />
         <Route path="/registration" element={<Registration />} />
-        <Route path="/counselor-registration" element={<CounselorRegistration />} />
         <Route element={<PrivateRouteCounselor />}>
+        <Route element={<CounselorLayout />}>
           <Route path="/counselor-profile" element={<CounselorProfile />} />
-        </Route>
+          <Route path="/counselor-appointments" element={<CounselorAppointments />} />
+          <Route path="/counselor-pass-change" element={<CounselorPassChange />} />
+
+        </Route></Route>
 
         {/* Admin Routes */}
         <Route path="/admin-signin" element={<AdminSignin />} />
-        <Route path="/admin-signup" element={<AdminSignup />} />
 
         {/* Protected Admin Routes */}
         <Route element={<PrivateRouteAdmin />}>
           <Route element={<AdminLayout />}>
+            <Route path="/counselor-registration" element={<CounselorRegistration />} />
             <Route path="/admin-profile" element={<AdminProfile />} />
             <Route path="/admin-counselor-access" element={<AdminCounselorAccess />} />
             <Route path="/admin-client-access" element={<AdminClientAccess />} />
+            <Route path="/admin-signup" element={<AdminSignup />} />
+          <Route path="/admin-pass-change" element={<AdminPassChange />} />
+
           </Route>
         </Route>
       </Routes>

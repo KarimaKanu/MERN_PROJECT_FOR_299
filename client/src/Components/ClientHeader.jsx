@@ -1,10 +1,7 @@
-
 import React from 'react'
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
-export default function AdminHeader() {
-    const { currentUser} = useSelector(state => state.user)
+export default function ClientHeader() {
   return (
     
     <div className="grid grid-flow-col bg-yellow-50 text-base-content rounded text-center">
@@ -21,7 +18,7 @@ export default function AdminHeader() {
       <div tabIndex="0" role="button">
         <div>
           <img src="./src/img/user.svg" className="w-5 text-center m-auto" alt="Profile" />
-          <Link className="link link-hover hover:text-teal-400">Profile</Link>
+          <Link to="client-pass-change" className="link link-hover hover:text-teal-400">Profile</Link>
         </div>
       </div>
       
@@ -32,7 +29,7 @@ export default function AdminHeader() {
       <div tabIndex="0" role="button">
         <div>
           <img src="./src/img/user-pen.svg" className="w-5 text-center m-auto" alt="My Account" />
-          <Link to="admin-pass-change" className="link link-hover hover:text-teal-400">My Account</Link>
+          <Link className="link link-hover hover:text-teal-400">My Account</Link>
         </div>
       </div>
       
@@ -52,7 +49,7 @@ export default function AdminHeader() {
     {/* Curriculum Link */}
     <div className="border-l-2 border-teal-400 p-4">
       <img src="./src/img/rules-alt.svg" className="w-5 text-center m-auto" alt="Curriculum" />
-      <Link to="/counselor-registration" className="link link-hover hover:text-teal-400">Counselor Registration</Link>
+      <Link className="link link-hover hover:text-teal-400">Curriculum</Link>
     </div>
 
     {/* Services Link */}
@@ -66,7 +63,7 @@ export default function AdminHeader() {
       <div tabIndex="0" role="button">
         <div>
           <img src="./src/img/calendar-days.svg" className="w-5 text-center m-auto" alt="Appointments" />
-          <Link to="/admin-counselor-access"  className="link link-hover hover:text-teal-400">Counselors</Link>
+          <Link className="link link-hover hover:text-teal-400">Appointments</Link>
         </div>
       </div>
       
@@ -77,15 +74,11 @@ export default function AdminHeader() {
       <div tabIndex="0">
         <div>
           <img src="./src/img/laptop-medical.svg" className="w-5 text-center m-auto" alt="Counselors" />
-          <Link to="/admin-client-access"  className="link link-hover hover:text-teal-400">Clients</Link>
+          <Link className="link link-hover hover:text-teal-400">Counselors</Link>
         </div>
       </div>
       
     </div>
-    
   </div>
-
-
-    
   )
 }

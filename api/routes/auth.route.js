@@ -12,6 +12,10 @@ router.post("/signin", signin);
 //router.post("/registration", registration);
 router.get('/signout',signout);
 
+// In your router
+
+
+
 
 
 
