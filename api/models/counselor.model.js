@@ -28,14 +28,33 @@ const counselorSchema = new mongoose.Schema(
       },
       gender: {
         type: String,
+        required: true, // if you want gender to be mandatory
+      },
+      specialization: {
+        type: String,
         //enum: ['Male', 'Female', 'Other'], // restricts values to these options
         required: true, // if you want gender to be mandatory
       },
       
       maritalStatus: {
         type: String, // Make sure to define type as String
-        //enum: ['Married', 'Unmarried'],
         required: true,
+      },
+      experience: {
+        type: String,
+        required: [true, "experience is required"],
+      },
+      feesPerConsultation: {
+        type: Number,
+        required: [true, "fee is required"],
+      },
+      status: {
+        type: String,
+        default: "pending",
+      },
+      timings: {
+        type: Object,
+        required: [true, "work timing is required"],
       },
       contactNo: {
         type: String,

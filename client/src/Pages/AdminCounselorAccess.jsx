@@ -24,7 +24,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
-export default function AdminClientAccess() {
+export default function AdminCounselorAccess() {
    
   const { currentUser } = useSelector((state) => state.user);
   const [clients, setClients] = useState([]);

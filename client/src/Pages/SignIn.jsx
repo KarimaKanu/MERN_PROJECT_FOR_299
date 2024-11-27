@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function SignIn() {
   const[formData, setFormData] = useState({})
   const {loading, error} = useSelector((state) => state.user);
+  const { currentUser} = useSelector(state => state.user)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleChange = (e) =>
@@ -34,7 +35,21 @@ export default function SignIn() {
           
         }
         dispatch(signInSuccess(data));
-      navigate('/client-profile');
+        if(data.role==3)
+        {
+          navigate('/client-profile');
+
+        }
+        if(data.role==1)
+        {
+          navigate('/admin-profile');
+
+        }
+        if(data.role==2)
+        {
+          navigate('/counselor-profile');
+
+        }
     } catch (error) {
       dispatch(signInFailure(error));
     }
@@ -43,7 +58,7 @@ export default function SignIn() {
   return (
     <div className="text-center m-auto">
       <h1 className="text-3xl font-bold p-5 flex justify-center text-center mt-10 m-auto rounded-lg bg-yellow-100 w-1/2">
-        Client SignIN Page
+        SignIN Page
       </h1>
 
       <form onSubmit={handleSubmit}  className="w-full flex justify-center">
@@ -81,8 +96,10 @@ export default function SignIn() {
               <span className='text-blue-400 '>Sign Up</span>
               </Link> <br />
           </div>
-        <p className='text-red-600 mt-3'>{error ? error|| 'Something went wrong' : ""}</p>
-
+        {/* <p className='text-red-600 mt-3'>{error ? error|| 'Something went wrong' : ""}</p> */}
+        <p className="text-red-600 mt-3">
+  {error ? (typeof error === 'object' ? error.message : error) : ""}
+</p>
         </section>
 
       </form>

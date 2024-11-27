@@ -7,7 +7,7 @@ export default function AdminHeader() {
     const { currentUser} = useSelector(state => state.user)
   return (
     
-    <div className="grid grid-flow-col bg-yellow-50 text-base-content rounded text-center">
+    <div className="grid grid-flow-col sticky top-16 z-50' bg-yellow-50 text-base-content rounded text-center">
     {/* Home Link */}
     <div className="border-l-2 border-teal-400 p-2">
       <img src="./src/img/home.svg" className="w-5 text-center m-auto" alt="Home" />

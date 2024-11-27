@@ -1,4 +1,10 @@
 import User from "../models/user.model.js";
+import Counselor from "../models/counselor.model.js";
+import Admin from "../models/admin.model.js";
+
+
+
+
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { errorHandler } from "../utils/error.js";
@@ -20,27 +26,76 @@ export const signup = async (req, res, next) =>
     
 };
 
-//  name, age, gender, occupation, maritalStatus, contactNo, emergencyNo, address, educationMedium, upbringingPlace, extracurriculars, currentConcerns, receivedMentalHealthServices, takingPsychiatricMedication
+ //name, age, gender, occupation, maritalStatus, contactNo, emergencyNo, address, educationMedium, upbringingPlace, extracurriculars, currentConcerns, receivedMentalHealthServices, takingPsychiatricMedication
+
+
+//  export const signin = async (req, res, next) => {
+//   const { email, password } = req.body;
+//   try {
+//     const validUser = await User.findOne({ email });
+//     if (!validUser) return next(errorHandler(404, 'User not found'));
+//     const validPassword = bcryptjs.compareSync(password, validUser.password);
+//     if (!validPassword) return next(errorHandler(401, 'wrong credentials'));
+//     const token = jwt.sign({ id: validUser._id }, '299');
+//     const { password: hashedPassword, ...rest } = validUser._doc;
+//     const expiryDate = new Date(Date.now() + 3600000); // 1 hour
+//     res
+//       .cookie('access_token', token, { httpOnly: true , expires: expiryDate})
+//       .status(200)
+//       .json(rest);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 
 export const signin = async (req, res, next) => {
-    const { email, password } = req.body;
-    try {
-      const validUser = await User.findOne({ email });
-      if (!validUser) return next(errorHandler(404, 'User not found'));
-      const validPassword = bcryptjs.compareSync(password, validUser.password);
-      if (!validPassword) return next(errorHandler(401, 'wrong credentials'));
-      const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
-      const { password: hashedPassword, ...rest } = validUser._doc;
-      const expiryDate = new Date(Date.now() + 3600000); // 1 hour
-      res
-        .cookie('access_token', token, { httpOnly: true , expires: expiryDate})
-        .status(200)
-        .json(rest);
-    } catch (error) {
-      next(error);
+  const { email, password } = req.body; // No role in the request body
+  try {
+    // Check in User collection
+    let validEntity = await User.findOne({ email });
+    let entityType = 'User';
+
+    // If not found in User, check in Counselor collection
+    if (!validEntity) {
+      validEntity = await Counselor.findOne({ email });
+      entityType = 'Counselor';
     }
-  };
+
+
+    // If not found in Counselor, check in Admin collection
+    if (!validEntity) {
+      validEntity = await Admin.findOne({ email });
+      entityType = 'Admin';
+    }
+
+    // If not found in either collection
+    if (!validEntity) {
+      return next(errorHandler(404, 'Account not found'));
+    }
+
+    // Validate password
+    const validPassword = bcryptjs.compareSync(password, validEntity.password);
+    if (!validPassword) return next(errorHandler(401, 'Wrong credentials'));
+
+    // Generate JWT token
+    const token = jwt.sign({ id: validEntity._id, type: entityType }, '299'); // Include type in token
+    const { password: hashedPassword, ...rest } = validEntity._doc;
+
+    // Set cookie expiry (1 hour)
+    const expiryDate = new Date(Date.now() + 36000);
+
+    // Respond with cookie and entity details
+    res
+      .cookie('access_token', token, { httpOnly: true, expires: expiryDate })
+      .status(200)
+      .json(rest);
+  } catch (error) {
+    next(error); // Pass unexpected errors to the error handler
+  }
+};
+
+
   
   export const signout =(req,res)=>{
     res.clearCookie('access_token').status(200).json('Signout Success ');

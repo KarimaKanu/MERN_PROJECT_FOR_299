@@ -4,6 +4,9 @@ import {
     updateUserStart,
     updateUserSuccess,
     updateUserFailure,
+    deleteUserFailure,
+    deleteUserSuccess,
+    deleteUserStart,
    
   } from '../redux/user/userSlice';
 
@@ -11,6 +14,7 @@ import {
 export default function ClientPassChange() {
     const { currentUser, loading, error } = useSelector((state) => state.user);
     const dispatch = useDispatch();
+
 
     const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
@@ -38,6 +42,22 @@ export default function ClientPassChange() {
           setUpdateSuccess(true);
         } catch (error) {
           dispatch(updateUserFailure(error));
+        }
+      };
+      const handleDeleteAccount = async () => {
+        try {
+          dispatch(deleteUserStart());
+          const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+            method: 'DELETE',
+          });
+          const data = await res.json();
+          if (data.success === false) {
+            dispatch(deleteUserFailure(data));
+            return;
+          }
+          dispatch(deleteUserSuccess(data));
+        } catch (error) {
+          dispatch(deleteUserFailure(error));
         }
       };
     
@@ -73,11 +93,15 @@ export default function ClientPassChange() {
 
 <button
 
- className="rounded mt-3 bg-white px-8 py-2 hover:bg-teal-500 hover:opacity-95 disabled:opacity-80 hover:text-white">{loading ? 'Loading...' : 'Update'}</button>
+ className="rounded mt-3 bg-teal-400 px-8 py-2 hover:bg-teal-300 hover:opacity-95 disabled:opacity-80 hover:text-white w-1/2">{loading ? 'Loading...' : 'Update'}</button>
 <p className='text-green-700 mt-5'>
 {updateSuccess && 'Updated successfully!'}</p> 
 
 </form>
+<div className='flex justify-center'> 
+<button onClick={handleDeleteAccount} className='bg-red-500 p-2 text-black rounded-lg m-auto  hover:text-white w-1/4 my-5 text-center hover:bg-red-400  '>Delete Account</button>
+
+</div>
        </section>
 
   )

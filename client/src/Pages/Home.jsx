@@ -1,9 +1,62 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import CounselorLists from '../Components/CounselorLists.jsx';
+import { Row } from "antd";
+import axios from 'axios';
 
 export default function Home() {
-  const { currentUser} = useSelector(state => state.user)
+  // const { currentUser} = useSelector(state => state.user)
+  // const [counselors, setCounselor] = useState([]);
+  
+  // const getUserData = async () => {
+  //   try {
+  //     await fetch('/api/user/getAllCounselor');
+  //     if (res.data.success) {
+  //       setCounselor(res.data.data);
+  //       console.log(data);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+    
+  // };
+
+  // useEffect(() => {
+  //   getUserData();
+  // }, []);
+  const { currentUser } = useSelector((state) => state.user);
+  const [counselors, setCounselor] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+   
+    const fetchCounselors = async () => {
+      try {
+        const response = await axios.get('/api/admin/counselors'); // Adjust endpoint as needed
+        
+        setCounselor(response.data);
+        //console.log(response.data);
+        setLoading(false);
+        //console.log(data)
+      } catch (error) {
+        console.error('Error fetching counselors:', error);
+        setLoading(false);
+      }
+
+    };
+
+    fetchCounselors();
+  }, []);
+
+  if (loading) {
+    return (
+      <h1 className="text-2xl font-bold text-center mt-10 text-yellow-500">
+        Loading counselors...
+      </h1>
+    );
+  }
+
   return (
     <section>
     <div className="banner bg-yellow-50 m-0">
@@ -23,10 +76,21 @@ export default function Home() {
       
     </div>
     <section>{currentUser ? <p></p>: <section className='m-auto my-10 border-4 w-1/2 align-middle justify-center bg-yellow-50 p-8 rounded-lg'>
-        <p className='text-xl text-center font-extrabold cursor-grab hover:text-teal-600'> <Link to='counselor-signin'>Counselor Sign in</Link> </p><br />
-        <p className='text-xl text-center font-extrabold cursor-grab hover:text-teal-600'><Link to='sign-in'>Member Sign in</Link> </p> <br />
-        <p className='text-xl text-center font-extrabold cursor-grab hover:text-teal-600'><Link to='admin-signin'>Admin Sign in</Link> </p>
-      </section> }</section>
+        
+        <p className='text-xl text-center font-extrabold cursor-grab hover:text-teal-600'><Link to='sign-in'>Sign in</Link> </p> <br />
+       
+      </section> }
+      
+      <h1 className='text-center font-extrabold text-2xl p-8 mt-5'>Our Leading Counselors</h1>
+     <Row className='m-auto grid grid-cols-2 gap-7 '>
+     
+{counselors && counselors.map((counselor) => (
+  <CounselorLists key={counselor._id} counselor={counselor} />
+))}
+     </Row>
+     
+      
+      </section>
     
     <footer className=" py-10 bg-teal-400 text-base-content rounded mt-40 px-auto justify-center">
     <div className="flex gap-3">

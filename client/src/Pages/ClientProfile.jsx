@@ -21,23 +21,7 @@ export default function ClientProfile() {
     }
   };
 
-  const handleDeleteAccount = async () => {
-    try {
-      dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/deleteUser/${currentUser._id}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(deleteUserFailure(data));
-        return;
-      }
-      dispatch(deleteUserSuccess(data));
-      navigate('/');
-    } catch (error) {
-      dispatch(deleteUserFailure(error));
-    }
-  };
+  
    
   return (
     
@@ -51,7 +35,7 @@ export default function ClientProfile() {
         
       <div className=' text-center  '>
       <button onClick={handleSignOut} className='bg-teal-200 p-2 rounded-lg m-3 hover:bg-yellow-100 hover:text-teal-500  '>Sign Out</button>
-      <button onClick={handleDeleteAccount} className='bg-teal-200 p-2 rounded-lg m-3 hover:bg-yellow-100 hover:text-teal-500  '>delete</button>
+     
       </div>
 
       

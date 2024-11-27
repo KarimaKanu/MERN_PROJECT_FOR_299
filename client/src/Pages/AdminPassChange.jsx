@@ -12,6 +12,9 @@ import {
     updateUserStart,
     updateUserSuccess,
     updateUserFailure,
+    deleteUserStart,
+    deleteUserFailure,
+    deleteUserSuccess,
    
   } from '../redux/user/userSlice';
 
@@ -46,6 +49,22 @@ export default function AdminPassChange() {
           setUpdateSuccess(true);
         } catch (error) {
           dispatch(updateUserFailure(error));
+        }
+      };
+      const handleDeleteAccount = async () => {
+        try {
+          dispatch(deleteUserStart());
+          const res = await fetch(`/api/admin/deleteAdmin/${currentUser._id}`, {
+            method: 'DELETE',
+          });
+          const data = await res.json();
+          if (data.success === false) {
+            dispatch(deleteUserFailure(data));
+            return;
+          }
+          dispatch(deleteUserSuccess(data));
+        } catch (error) {
+          dispatch(deleteUserFailure(error));
         }
       };
     
@@ -86,6 +105,10 @@ export default function AdminPassChange() {
  <p className='text-green-700 mt-5'>
  {updateSuccess && 'Updated successfully!'}</p>
 </form>
+<div className='flex justify-center'> 
+<button onClick={handleDeleteAccount} className='bg-red-500 p-2 text-black rounded-lg m-auto  hover:text-white w-1/4 my-5 text-center hover:bg-red-400  '>Delete Account</button>
+
+</div>
        </section>
 
   )

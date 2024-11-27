@@ -91,3 +91,22 @@ export const adminSignin = async (req, res, next) => {
       next(error);
     }
   };
+
+  export const deleteAdmin = async (req, res, next) => {
+    
+    console.log(req.user.id, req.user.id === req.params.id);
+    
+    if (req.user.id !== req.params.id) {
+         console.log(req.user.id, req.user.id === req.params.id);
+      return next(errorHandler(401, 'You can delete only your account!'));
+    }
+
+    try {
+      await Admin.findByIdAndDelete(req.params.id);
+      return res.status(200).json('User has been deleted...');
+    } catch (error) {
+        console.log(error);
+        // next(error);
+    }
+  //.clearCookie('access_token')
+  };

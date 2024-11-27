@@ -1,10 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 export default function ClientHeader() {
+  const location = useLocation(); // Get the current route
   return (
     
-    <div className="grid grid-flow-col bg-yellow-50 text-base-content rounded text-center">
+    <div className="grid grid-flow-col sticky top-16 z-50 bg-yellow-50 text-base-content text-center">
     {/* Home Link */}
     <div className="border-l-2 border-teal-400 p-2">
       <img src="./src/img/home.svg" className="w-5 text-center m-auto" alt="Home" />
@@ -14,29 +15,35 @@ export default function ClientHeader() {
     </div>
 
     {/* Profile Dropdown */}
-    <div className="dropdown dropdown-hover border-l-2 border-teal-400 py-4">
+    <div className="dropdown dropdown-hover border-l-2 border-teal-400 py-3">
       <div tabIndex="0" role="button">
         <div>
           <img src="./src/img/user.svg" className="w-5 text-center m-auto" alt="Profile" />
-          <Link to="client-pass-change" className="link link-hover hover:text-teal-400">Profile</Link>
+          <Link  className={`link link-hover hover:text-teal-400 ${
+  location.pathname === "/home" ? "bg-teal-200 border-y-4 text-white " : ""
+}`}>Profile</Link>
         </div>
       </div>
       
     </div>
 
     {/* My Account Dropdown */}
-    <div className="dropdown dropdown-hover border-l-2 border-teal-400 py-4">
+    <div className={`dropdown dropdown-hover border-l-2 border-teal-400 py-3 ${
+  location.pathname === "/client-pass-change" ? "bg-teal-300  text-black " : ""
+}`}>
       <div tabIndex="0" role="button">
-        <div>
+        <div >
           <img src="./src/img/user-pen.svg" className="w-5 text-center m-auto" alt="My Account" />
-          <Link className="link link-hover hover:text-teal-400">My Account</Link>
+          <Link to="client-pass-change" className={`link link-hover hover:text-teal-400 `}>My Account</Link>
         </div>
       </div>
       
     </div>
 
     {/* Payments Dropdown */}
-    <div className="dropdown dropdown-hover border-l-2 border-teal-400 py-4">
+    <div className={`dropdown dropdown-hover border-l-2 border-teal-400 py-3 ${
+  location.pathname === "/" ? "bg-teal-300  text-black " : ""
+}`}>
       <div tabIndex="0" role="button">
         <div>
           <img src="./src/img/hand-bill.svg" className="w-5 text-center m-auto" alt="Payments" />
@@ -47,7 +54,7 @@ export default function ClientHeader() {
     </div>
 
     {/* Curriculum Link */}
-    <div className="border-l-2 border-teal-400 p-4">
+    <div className="border-l-2 border-teal-400 p-3">
       <img src="./src/img/rules-alt.svg" className="w-5 text-center m-auto" alt="Curriculum" />
       <Link className="link link-hover hover:text-teal-400">Curriculum</Link>
     </div>
@@ -59,7 +66,7 @@ export default function ClientHeader() {
     </div>
 
     {/* Appointments Dropdown */}
-    <div className="dropdown dropdown-hover border-l-2 border-teal-400 py-4">
+    <div className="dropdown dropdown-hover border-l-2 border-teal-400 py-3">
       <div tabIndex="0" role="button">
         <div>
           <img src="./src/img/calendar-days.svg" className="w-5 text-center m-auto" alt="Appointments" />
@@ -70,7 +77,7 @@ export default function ClientHeader() {
     </div>
 
     {/* Counselors Dropdown */}
-    <div className="dropdown dropdown-hover border-l-2 border-teal-400 py-4">
+    <div className="dropdown dropdown-hover border-l-2 border-teal-400 py-3">
       <div tabIndex="0">
         <div>
           <img src="./src/img/laptop-medical.svg" className="w-5 text-center m-auto" alt="Counselors" />

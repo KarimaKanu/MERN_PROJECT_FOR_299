@@ -28,6 +28,8 @@ import ClientHeader from "./Components/ClientHeader";
 import ClientPassChange from "./Pages/ClientPassChange";
 import CounselorPassChange from "./Pages/CounselorPassChange";
 import AdminPassChange from "./Pages/AdminPassChange";
+import Appointment from "./Pages/Appointment";
+import CounselorLists from "./Components/CounselorLists";
 
 // Admin Layout
 const AdminLayout = () => {
@@ -67,6 +69,10 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/appointment" element={<Appointment />} />
+        <Route path="/counselor_lists" element={<CounselorLists />} />
+        <Route path="/counselor-appointments/:id" element={<CounselorAppointments />} />
+        
         <Route element={<PrivateRoute />}>
         <Route element={<ClientLayout />}>
           <Route path="/client-profile" element={<ClientProfile />} />
@@ -78,7 +84,7 @@ export default function App() {
         <Route element={<PrivateRouteCounselor />}>
         <Route element={<CounselorLayout />}>
           <Route path="/counselor-profile" element={<CounselorProfile />} />
-          <Route path="/counselor-appointments" element={<CounselorAppointments />} />
+          
           <Route path="/counselor-pass-change" element={<CounselorPassChange />} />
 
         </Route></Route>

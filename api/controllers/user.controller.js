@@ -1,7 +1,7 @@
 import User from '../models/user.model.js';
-
 import bcryptjs from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
+import Counselor from '../models/counselor.model.js';
 
 
 export const test = (req, res) =>
@@ -30,6 +30,8 @@ export const deleteUser = async (req, res, next) => {
     }
   //.clearCookie('access_token')
   };
+
+  
   export const updateUser = async (req, res, next) => {
     console.log(req.user.id, req.user.id === req.params.id);
     if (req.user.id !== req.params.id) {
@@ -57,3 +59,23 @@ export const deleteUser = async (req, res, next) => {
       next(error);
     }
   };
+
+  export const getAllCounselor= async (req, res) => {
+    try {
+      const counselors = await Counselor.find({ status: "approved" });
+      res.status(200).send({
+        success: true,
+        message: "Counselor Lists Fetched Successfully",
+        data: counselors,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        error,
+        message: "Error WHile Fetching Counselors",
+      });
+    }
+  };
+  
+  

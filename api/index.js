@@ -10,19 +10,24 @@ import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
-
-mongoose.connect(process.env.MONGO).then(() =>{
+//mongoose.connect(process.env.MONGO)
+mongoose.connect('mongodb+srv://karimaakternov2001:XJ4E6xhWEbJXcqtp@merncluster.t1qgi.mongodb.net/counseling-center-db?retryWrites=true&w=majority&appName=mernCluster').then(() =>{
     console.log('connected to mongodb')
 })
 .catch((err) => {
     console.log(err)
 })
 
+// if (!process.env.MONGO) {
+//     console.error("Error: MONGO URI is not defined in the environment variables.");
+//     process.exit(1); // Exit the process if the environment variable is missing
+// }
+
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+//app.use(cors());
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 
 app.listen(3000, () =>
@@ -48,6 +53,6 @@ app.use((err, req, res, next) => {
         statusCode,
         });
     } catch (error) {
-       console.log("ekhane fakap: ", error); 
+      
     }
   });
