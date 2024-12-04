@@ -21,6 +21,11 @@ const counselorSchema = new mongoose.Schema(
         required: true,
     
       },
+      image: {
+        type: String,
+        required: true,
+    
+      },
       age: {
         type: Number,
         required: true,
@@ -76,7 +81,18 @@ const counselorSchema = new mongoose.Schema(
         default: 2,
         
       },
-      
+      available: { 
+        type: Boolean, 
+        default: true 
+      },
+      slots_booked: { 
+        type: Object, 
+        default: {} 
+      },
+      date: { 
+        type: Number, 
+        required: true 
+      },
       
       
     },

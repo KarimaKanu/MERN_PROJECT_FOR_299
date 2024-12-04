@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import CounselorLists from '../Components/CounselorLists.jsx';
 import { Row } from "antd";
 import axios from 'axios';
+import TopDoctors from '../Components/TopDoctors.jsx';
 
 export default function Home() {
   // const { currentUser} = useSelector(state => state.user)
@@ -56,7 +57,7 @@ export default function Home() {
       </h1>
     );
   }
-
+  
   return (
     <section>
     <div className="banner bg-yellow-50 m-0">
@@ -82,13 +83,18 @@ export default function Home() {
       </section> }
       
       <h1 className='text-center font-extrabold text-2xl p-8 mt-5'>Our Leading Counselors</h1>
-     <Row className='m-auto grid grid-cols-2 gap-7 '>
+      {/* <Row className="mx-auto my-6 p-4 max-w-screen-lg grid grid-cols-3 gap-7">
      
 {counselors && counselors.map((counselor) => (
   <CounselorLists key={counselor._id} counselor={counselor} />
 ))}
      </Row>
-     
+      */}
+
+      <section>
+        <TopDoctors/>
+      </section>
+
       
       </section>
     

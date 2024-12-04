@@ -3,8 +3,9 @@ import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { errorHandler } from "../utils/error.js";
 import Counselor from '../models/counselor.model.js';
-import Schedule from '../models/schedule.model.js';
+
 import User from '../models/user.model.js';
+import appointmentModel from '../models/appointModel.js';
 
 
 
@@ -23,7 +24,7 @@ export const counselorSignin = async (req, res, next) => {
       const { password: hashedPassword, ...rest } = validUser._doc;
       const expiryDate = new Date(Date.now() + 3600000); // 1 hour
       res
-        .cookie('access_token', token, { httpOnly: true , expires: expiryDate})
+        .cookie('access_token_c', token, { httpOnly: true , expires: expiryDate})
         .status(200)
         .json(rest);
     } catch (error) {
@@ -36,9 +37,9 @@ export const counselorSignin = async (req, res, next) => {
 
   export const counselorSignup = async (req, res, next) =>
     {
-        const { username, email, password, name, age, gender, experience, feesPerConsultation, status, timings, specialization,  maritalStatus, contactNo, emergencyNo, address } = req.body;
+        const { username, email, password, name, age, gender, experience, feesPerConsultation, status, timings, specialization,  maritalStatus, contactNo, emergencyNo, address, date, available, slots_booked, image, degree } = req.body;
         const hashedPassword = bcryptjs.hashSync(password, 10)
-        const newUser = new Counselor({username, email, password:hashedPassword, name, age, gender, experience, feesPerConsultation, status, timings, specialization, maritalStatus, contactNo, emergencyNo, address});
+        const newUser = new Counselor({username, email, password:hashedPassword, name, age, gender, experience, feesPerConsultation, status, timings, specialization, maritalStatus, contactNo, emergencyNo, address, date, available, slots_booked, image, degree});
         try{
             await newUser.save();
             res.status(201).json({message:"Counselor created successfully"});
@@ -53,13 +54,13 @@ export const counselorSignin = async (req, res, next) => {
 
   
   export const counselorSignout =(req,res)=>{
-    res.clearCookie('access_token').status(200).json('Signout Success ');
+    res.clearCookie('access_token_c').status(200).json('Signout Success ');
   };
 
 
   export const updateCounselor = async (req, res, next) => {
-    console.log(req.user.id, req.user.id === req.params.id);
-    if (req.user.id !== req.params.id) {
+    console.log(req.counselor.id, req.counselor.id === req.params.id);
+    if (req.counselor.id !== req.params.id) {
       return next(errorHandler(401, 'You can update only your account!'));
     }
     try {
@@ -84,78 +85,122 @@ export const counselorSignin = async (req, res, next) => {
       next(error);
     }
   };
+
+
   export const deleteCounselor = async (req, res, next) => {
     
-    console.log(req.user.id, req.user.id === req.params.id);
+    console.log(req.counselor.id, req.counselor.id === req.params.id);
     
-    if (req.user.id !== req.params.id) {
-         console.log(req.user.id, req.user.id === req.params.id);
+    if (req.counselor.id !== req.params.id) {
+         console.log(req.counselor.id, req.counselor.id === req.params.id);
       return next(errorHandler(401, 'You can delete only your account!'));
     }
 
     try {
       await Counselor.findByIdAndDelete(req.params.id);
-      return res.status(200).json('User has been deleted...');
+      return res.status(200).json('counselor has been deleted...');
     } catch (error) {
         console.log(error);
         // next(error);
     }
-  //.clearCookie('access_token')
+  //.clearCookie('_c')
   };
 
 
-//  export const getCounselorByIdController = async (req, res) => {
-//     try {
-//       const counselor = await Counselor.findOne({ _id: req.body.counselorId }); // Use `req.query` instead of `req.body`
-      
-//       res.status(200).send({
-//         success: true,
-//         message: "Single Counselor Info Fetched",
-//         data: counselor,
-//       });
-      
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).send({
-//         success: false,
-//         error,
-//         message: "Error fetching single counselor info",
-//       });
-//     }
-//   };
-  
-export const getCounselorByIdController = async (req, res) => {
+  export const counselorList = async (req, res) => {
+    try {
+
+        const doctors = await Counselor.find({}).select(['-password', '-email'])
+        res.json({ success: true, doctors })
+
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message })
+    }
+
+}
+
+
+const appointmentsCounselor = async (req, res) => {
   try {
-    const { counselorId } = req.query; // Read from query parameters
 
-    if (!counselorId) {
-      return res.status(400).send({
-        success: false,
-        message: "Counselor ID is required",
-      });
-    }
+      const { counselorId } = req.body
+      const appointments = await appointmentModel.find({ counselorId })
 
-    const counselor = await Counselor.findById(counselorId);
+      res.json({ success: true, appointments })
 
-    if (!counselor) {
-      return res.status(404).send({
-        success: false,
-        message: "Counselor not found",
-      });
-    }
-
-    res.status(200).send({
-      success: true,
-      message: "Single Counselor Info Fetched",
-      data: counselor,
-    });
   } catch (error) {
-    console.error("Error fetching single counselor info:", error);
-    res.status(500).send({
-      success: false,
-      error,
-      message: "Error fetching single counselor info",
-    });
+      console.log(error)
+      res.json({ success: false, message: error.message })
   }
-};
-﻿
+}
+
+
+
+const changeAvailability = async (req, res) => {
+  try {
+
+      const { counselorId } = req.body
+
+      const docData = await Counselor.findById(counselorId)
+      await Counselor.findByIdAndUpdate(counselorId, { available: !docData.available })
+      res.json({ success: true, message: 'Availability Changed' })
+
+  } catch (error) {
+      console.log(error)
+      res.json({ success: false, message: error.message })
+  }
+}
+
+
+
+const appointmentCancel = async (req, res) => {
+  try {
+
+      const { counselorId, appointmentId } = req.body
+
+      const appointmentData = await appointmentModel.findById(appointmentId)
+      if (appointmentData && appointmentData.counselorId === counselorId) {
+          await appointmentModel.findByIdAndUpdate(appointmentId, { cancelled: true })
+          return res.json({ success: true, message: 'Appointment Cancelled' })
+      }
+
+      res.json({ success: false, message: 'Appointment Cancelled' })
+
+  } catch (error) {
+      console.log(error)
+      res.json({ success: false, message: error.message })
+  }
+
+}
+
+
+
+const appointmentComplete = async (req, res) => {
+  try {
+
+      const { counselorId, appointmentId } = req.body
+
+      const appointmentData = await appointmentModel.findById(appointmentId)
+      if (appointmentData && appointmentData.counselorId === counselorId) {
+          await appointmentModel.findByIdAndUpdate(appointmentId, { isCompleted: true })
+          return res.json({ success: true, message: 'Appointment Completed' })
+      }
+
+      res.json({ success: false, message: 'Appointment Cancelled' })
+
+  } catch (error) {
+      console.log(error)
+      res.json({ success: false, message: error.message })
+  }
+
+}
+
+
+
+
+
+
+
+
+export {appointmentsCounselor, changeAvailability, appointmentCancel, appointmentComplete}

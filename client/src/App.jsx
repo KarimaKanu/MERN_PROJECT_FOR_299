@@ -21,15 +21,19 @@ import AdminCounselorAccess from "./Pages/AdminCounselorAccess";
 import AdminClientAccess from "./Pages/AdminClientAccess";
 import PrivateRouteAdmin from "./Components/PrivateRouteAdmin";
 import AdminHeader from "./Components/AdminHeader";
-import ClientAppointments from "./Pages/ClientAppointments";
-import CounselorAppointments from "./Pages/CounselorAppointments";
+import CounselorAppointments from "./Pages/Appointments";
 import CounselorHeader from "./Components/CounselorHeader";
 import ClientHeader from "./Components/ClientHeader";
 import ClientPassChange from "./Pages/ClientPassChange";
 import CounselorPassChange from "./Pages/CounselorPassChange";
 import AdminPassChange from "./Pages/AdminPassChange";
-import Appointment from "./Pages/Appointment";
 import CounselorLists from "./Components/CounselorLists";
+import MyAppointments from "./Pages/MyAppointments";
+import Appointments from "./Pages/Appointments";
+import ShowCounselors from "./Pages/ShowCounselors";
+import ProfileCl from "./Pages/ProfileCl";
+import ProfileCounselor from "./Pages/ProfileCounselor";
+
 
 // Admin Layout
 const AdminLayout = () => {
@@ -69,22 +73,27 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/appointment" element={<Appointment />} />
+     
         <Route path="/counselor_lists" element={<CounselorLists />} />
         <Route path="/counselor-appointments/:id" element={<CounselorAppointments />} />
         
         <Route element={<PrivateRoute />}>
+        <Route path="/appointment/:docId" element={<Appointments />} />
         <Route element={<ClientLayout />}>
           <Route path="/client-profile" element={<ClientProfile />} />
           <Route path="/client-pass-change" element={<ClientPassChange />} />
-          <Route path="/client-appointments" element={<ClientAppointments />} />
+          <Route path="/my-appointments" element={<MyAppointments />} />
+          <Route path="/show-counselors" element={<ShowCounselors />} />
+          <Route path="/profile-cl" element={<ProfileCl />} />
+          
         </Route></Route>
         <Route path="/counselor-signin" element={<CounselorSignin />} />
         <Route path="/registration" element={<Registration />} />
         <Route element={<PrivateRouteCounselor />}>
         <Route element={<CounselorLayout />}>
           <Route path="/counselor-profile" element={<CounselorProfile />} />
-          
+          <Route path="/profile-counselor" element={<ProfileCounselor />} />
+
           <Route path="/counselor-pass-change" element={<CounselorPassChange />} />
 
         </Route></Route>

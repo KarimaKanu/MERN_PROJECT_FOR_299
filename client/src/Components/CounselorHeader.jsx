@@ -18,7 +18,7 @@ export default function CounselorHeader() {
           <div tabIndex="0" role="button">
             <div>
               <img src="./src/img/user.svg" className="w-5 text-center m-auto" alt="Profile" />
-              <Link  className="link link-hover hover:text-teal-400">Profile</Link>
+              <Link to="profile-counselor"  className="link link-hover hover:text-teal-400">Profile</Link>
             </div>
           </div>
           

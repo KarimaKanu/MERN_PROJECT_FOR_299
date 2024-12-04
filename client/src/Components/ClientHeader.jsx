@@ -1,10 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom'
 
 export default function ClientHeader() {
   const location = useLocation(); // Get the current route
+  const { currentUser} = useSelector(state => state.user)
   return (
-    
+    <div>
+
     <div className="grid grid-flow-col sticky top-16 z-50 bg-yellow-50 text-base-content text-center">
     {/* Home Link */}
     <div className="border-l-2 border-teal-400 p-2">
@@ -19,7 +22,7 @@ export default function ClientHeader() {
       <div tabIndex="0" role="button">
         <div>
           <img src="./src/img/user.svg" className="w-5 text-center m-auto" alt="Profile" />
-          <Link  className={`link link-hover hover:text-teal-400 ${
+          <Link to="profile-cl"  className={`link link-hover hover:text-teal-400 ${
   location.pathname === "/home" ? "bg-teal-200 border-y-4 text-white " : ""
 }`}>Profile</Link>
         </div>
@@ -70,7 +73,7 @@ export default function ClientHeader() {
       <div tabIndex="0" role="button">
         <div>
           <img src="./src/img/calendar-days.svg" className="w-5 text-center m-auto" alt="Appointments" />
-          <Link className="link link-hover hover:text-teal-400">Appointments</Link>
+          <Link className="link link-hover hover:text-teal-400">My Appointments</Link>
         </div>
       </div>
       
@@ -81,11 +84,15 @@ export default function ClientHeader() {
       <div tabIndex="0">
         <div>
           <img src="./src/img/laptop-medical.svg" className="w-5 text-center m-auto" alt="Counselors" />
-          <Link className="link link-hover hover:text-teal-400">Counselors</Link>
+          <Link to="/show-counselors" className="link link-hover hover:text-teal-400">Book Appointment</Link>
         </div>
       </div>
       
     </div>
+   
   </div>
+  
+  
+    </div>
   )
 }

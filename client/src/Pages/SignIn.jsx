@@ -34,7 +34,11 @@ export default function SignIn() {
           return;
           
         }
+       
         dispatch(signInSuccess(data));
+        localStorage.setItem('access_token', data.token); // Use data.token, not response.data.token
+        //console.log('Token stored in localStorage:', data.token);
+        
         if(data.role==3)
         {
           navigate('/client-profile');
